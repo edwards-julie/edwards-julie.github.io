@@ -102,7 +102,8 @@ const checkboxValues = [
     'Justice',
     'True-Crime',
     'LGBTQ',
-    'Women'
+    'Women',
+    "UU"
 ];
 
 function renderCheckboxes() {
@@ -142,7 +143,7 @@ function getCheckedValues() {
             checkedValues.push(checkboxes[i].value);
         }
     }
-    return checkedValues.join('; ');
+    return checkedValues.join(',');
 }
 
 
@@ -176,7 +177,7 @@ function addImages(hrefs) {
             info.textContent = `${x.naturalWidth}x${x.naturalHeight}`;
             photos.insertBefore(info, x)
         })
-    }, 1000);
+    }, 1500);
     
 }
 
