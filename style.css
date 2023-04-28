@@ -34,7 +34,7 @@ p {
 
 img {
   width: 94%;
-  margin: 10px auto 2px;
+  margin: 10px auto 6px;
 }
 
 img.full {
@@ -70,7 +70,8 @@ a:hover {
 }
 
 #countdown {
-  margin-bottom: -6px;
+  margin-bottom: -2px;
+  color: #25408B;
 }
 
 ul {
