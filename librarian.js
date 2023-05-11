@@ -66,7 +66,7 @@ function copyToClipboard(outputText) {
             } else {
                 console.log('no output!')
                 let checked = !!copiedText.style.marginLeft === 
-                console.log(checked)
+                
                 console.log(!!copiedText.style.marginLeft === 12)
                 console.log(copiedText.style.marginLeft)
                 if (checked) {
