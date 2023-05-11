@@ -8,6 +8,7 @@ let photos
 let checkboxContainer
 let checkboxes
 let copiedText
+let checked = false
 
 // defines objects
 function defineObjects() {
@@ -65,18 +66,14 @@ function copyToClipboard(outputText) {
                 console.log('had output')
             } else {
                 console.log('no output!')
-                let checked = !!copiedText.style.marginLeft === 
-                
-                console.log(!!copiedText.style.marginLeft === 12)
-                console.log(copiedText.style.marginLeft)
                 if (checked) {
-                    setCopied(false)
+                    setCopied(false);
                     setTimeout(() => {
-                        setCopied(true)
+                        setCopied(true);
                         console.log('set the thing')
-                    }, 750);
+                    }, 200);
                 } else {
-                    setCopied(true)
+                    setCopied(true);
                 }
             }
         })
@@ -86,6 +83,7 @@ function copyToClipboard(outputText) {
 }
 
 function generate() {
+    checked = true;
     if (!titleInput.value) {
         alert('Please select a book.')
     } else {
@@ -98,9 +96,9 @@ function generate() {
 
 function setCopied(copied) {
     if (copied) {
-        copiedText.style.marginLeft = '12px';
+        copiedText.style.display = 'inline-block';
     } else {
-        copiedText.style.marginLeft = '1200px';
+        copiedText.style.display = 'none';
     }
 }
 
@@ -115,7 +113,8 @@ function clearAndFocus() {
     links.innerHTML = '';
     output.value = '';
     photos.innerHTML = '';
-    copiedText.style.marginLeft = '1200px';
+    setCopied(false);
+    checked = false;
 
     checkboxes.forEach(x => {
         x.checked = false
@@ -218,7 +217,7 @@ async function fetchBookInfo(isbn) {
     getImages(isbn)
     bookData = data.items[0].volumeInfo;
     console.log(bookData)
-    copiedText.style.marginLeft = '1200px';
+    setCopied(false);
     return formatBookInfo(bookData, isbn);
 }
 
