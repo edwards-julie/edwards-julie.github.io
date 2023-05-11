@@ -115,6 +115,7 @@ function clearAndFocus() {
     links.innerHTML = '';
     output.value = '';
     photos.innerHTML = '';
+    copiedText.style.marginLeft = '1200px';
 
     checkboxes.forEach(x => {
         x.checked = false
@@ -217,6 +218,7 @@ async function fetchBookInfo(isbn) {
     getImages(isbn)
     bookData = data.items[0].volumeInfo;
     console.log(bookData)
+    copiedText.style.marginLeft = '1200px';
     return formatBookInfo(bookData, isbn);
 }
 
