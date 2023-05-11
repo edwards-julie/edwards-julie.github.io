@@ -7,6 +7,7 @@ let keywords
 let photos
 let checkboxContainer
 let checkboxes
+let copiedText
 
 // defines objects
 function defineObjects() {
@@ -19,6 +20,7 @@ function defineObjects() {
     photos = document.getElementById("photos")
     checkboxContainer = document.getElementById('checkbox-container');
     checkboxes = document.getElementsByName('checkbox');
+    copiedText = document.querySelector('.check')
 }
 
 function formatAuthorNames(authors) {
@@ -55,9 +57,29 @@ function extractYear(dateString) {
     return year;
 }
 
-function copyToClipboard() {
-    navigator.clipboard.writeText(output.value)
-        .then(() => { })
+function copyToClipboard(outputText) {
+    navigator.clipboard.writeText(outputText ? outputText : output.value)
+        .then(() => {
+            if (outputText) {
+                setCopied(true)
+                console.log('had output')
+            } else {
+                console.log('no output!')
+                let checked = !!copiedText.style.marginLeft === 
+                console.log(checked)
+                console.log(!!copiedText.style.marginLeft === 12)
+                console.log(copiedText.style.marginLeft)
+                if (checked) {
+                    setCopied(false)
+                    setTimeout(() => {
+                        setCopied(true)
+                        console.log('set the thing')
+                    }, 750);
+                } else {
+                    setCopied(true)
+                }
+            }
+        })
         .catch(err => {
             console.error("Failed to copy text: ", err);
         });
@@ -68,11 +90,18 @@ function generate() {
         alert('Please select a book.')
     } else {
         let outputText = `${titleInput.value}{${authorInput.value}{${descriptionInput.value}{${getCheckedValues()}{${bookData.isbn}`
-        console.log(outputText)
         getCheckedValues()
         output.value = outputText;
+        copyToClipboard(outputText);
     }
+}
 
+function setCopied(copied) {
+    if (copied) {
+        copiedText.style.marginLeft = '12px';
+    } else {
+        copiedText.style.marginLeft = '1200px';
+    }
 }
 
 function clearAndFocus() {
@@ -95,15 +124,16 @@ function clearAndFocus() {
 const checkboxValues = [
     'Featured',
     'LP',
-    'Graphic-Novel',
+    'Foreign-Language',
     'NW',
-    'Holiday',
+    'Graphic-Novel',
     'Signed',
-    'Justice',
+    'Holiday',
     'True-Crime',
+    'Justice',
+    'UU',
     'LGBTQ',
-    'Women',
-    "UU"
+    'Women'
 ];
 
 function renderCheckboxes() {
@@ -146,8 +176,6 @@ function getCheckedValues() {
     return checkedValues.join(',');
 }
 
-
-
 function formatBookInfo(googleBookData, isbn) {
     const subtitle = googleBookData.subtitle ? `: ${googleBookData.subtitle}` : '';
     const formattedTitle = `${googleBookData.title}${subtitle}`
@@ -178,7 +206,7 @@ function addImages(hrefs) {
             photos.insertBefore(info, x)
         })
     }, 1500);
-    
+
 }
 
 // Define a function to fetch book information from an API using ISBN
@@ -203,7 +231,7 @@ async function getGoogleImageSearchResult(isbn) {
     var url = "https://www.googleapis.com/customsearch/v1?key=" + apikey + "&cx=" + searchEngineID
         + "&q=" + isbn + "&num=10&searchType=image";
     console.log(url);
-    
+
     const response = await fetch(url);
     console.log(response);
     const data = await response.json();
@@ -212,7 +240,7 @@ async function getGoogleImageSearchResult(isbn) {
         if (x.link && x.link.includes('.jpg')) return `${x.link.split('.jpg')[0]}.jpg`
     }).filter(x => x)
     console.log(urls);
-    
+
     return urls.slice(0, numberOfResults);
 }
 
@@ -225,7 +253,7 @@ document.getElementById("isbn-form").addEventListener("submit", async function (
         try {
 
 
-            const bookData = await fetchBookInfo(isbn);      
+            const bookData = await fetchBookInfo(isbn);
 
             // Populate fields in book form using bookData
             document.getElementById("title-input").value = bookData.title;
@@ -236,9 +264,9 @@ document.getElementById("isbn-form").addEventListener("submit", async function (
             <p><a href=https://www.ebay.com/sh/research?marketplace=EBAY-US&keywords=${isbn}&dayRange=90&endDate=1680216616964&startDate=1672444216964&categoryId=0&offset=0&limit=50&tabName=SOLD&tz=America%2FLos_Angeles" target="_blank">Ebay</a>
         `;
             // google api thumbnail: <img src="${bookData.imageLinks?.thumbnail}">
-        //     photos.innerHTML += `
-        //     <img src="https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg">
-        // `
+            //     photos.innerHTML += `
+            //     <img src="https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg">
+            // `
         } catch (error) {
             alert('ISBN not recognized.')
         }

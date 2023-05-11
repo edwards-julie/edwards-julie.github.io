@@ -50,7 +50,7 @@ a.button {
   line-height: 100%;
   align-items: center;
   justify-content: center;
-  border: 1px solid #292223;
+  border: 1px solid #0e5b57;
   border-radius: 4px;
   text-decoration: none;
   color: #FAFBF6 !important;
@@ -62,11 +62,11 @@ a.button:hover {
 }
 
 a {
-  color: #048881;
+  color: #1D8E9B;
 }
 
 a:hover {
-  color: #224093;
+  color: #1f3671;
 }
 
 #countdown {
