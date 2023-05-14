@@ -1,3 +1,4 @@
+let isbnInput
 let titleInput
 let authorInput
 let descriptionInput
@@ -9,9 +10,12 @@ let checkboxContainer
 let checkboxes
 let copiedText
 let checked = false
+let generateArray = []
+let isbn = ''
 
 // defines objects
 function defineObjects() {
+    isbnInput = document.getElementById("isbn-input")
     titleInput = document.getElementById("title-input")
     authorInput = document.getElementById("author-input")
     descriptionInput = document.getElementById("description-input")
@@ -85,9 +89,9 @@ function copyToClipboard(outputText) {
 function generate() {
     checked = true;
     if (!titleInput.value) {
-        alert('Please select a book.')
+        alert('Please enter a book title.')
     } else {
-        let outputText = `${titleInput.value}{${authorInput.value}{${descriptionInput.value}{${getCheckedValues()}{${bookData.isbn}`
+        let outputText = `${titleInput.value}{${authorInput.value}{${descriptionInput.value}{${getCheckedValues()}{${isbn}`
         getCheckedValues()
         output.value = outputText;
         copyToClipboard(outputText);
@@ -103,9 +107,8 @@ function setCopied(copied) {
 }
 
 function clearAndFocus() {
-    var input = document.getElementById("isbn-input");
-    input.value = "";
-    input.focus();
+    isbnInput.value = "";
+    isbnInput.focus();
 
     titleInput.value = '';
     authorInput.value = '';
@@ -115,6 +118,7 @@ function clearAndFocus() {
     photos.innerHTML = '';
     setCopied(false);
     checked = false;
+    isbn = ''
 
     checkboxes.forEach(x => {
         x.checked = false
@@ -179,7 +183,7 @@ function getCheckedValues() {
 function formatBookInfo(googleBookData, isbn) {
     const subtitle = googleBookData.subtitle ? `: ${googleBookData.subtitle}` : '';
     const formattedTitle = `${googleBookData.title}${subtitle}`
-    bookData = {
+    let bookData = {
         title: formattedTitle,
         author: formatAuthorNames(googleBookData.authors),
         description: `${extractYear(googleBookData.publishedDate)} - ${googleBookData.description}`,
@@ -206,7 +210,6 @@ function addImages(hrefs) {
             photos.insertBefore(info, x)
         })
     }, 1500);
-
 }
 
 // Define a function to fetch book information from an API using ISBN
@@ -215,10 +218,10 @@ async function fetchBookInfo(isbn) {
     const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
     const data = await response.json();
     getImages(isbn)
-    bookData = data.items[0].volumeInfo;
-    console.log(bookData)
+    let googleBookData = data.items[0].volumeInfo;
+    console.log(googleBookData)
     setCopied(false);
-    return formatBookInfo(bookData, isbn);
+    return formatBookInfo(googleBookData, isbn);
 }
 
 async function getGoogleImageSearchResult(isbn) {
@@ -248,12 +251,10 @@ async function getGoogleImageSearchResult(isbn) {
 // Listen for submit event on ISBN form
 document.getElementById("isbn-form").addEventListener("submit", async function (event) {
     event.preventDefault();
-    const isbn = document.getElementById("isbn-input").value;
+    isbn = isbnInput.value;
 
     if (isbn.length >= 10) {
         try {
-
-
             const bookData = await fetchBookInfo(isbn);
 
             // Populate fields in book form using bookData
