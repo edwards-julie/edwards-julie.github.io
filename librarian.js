@@ -8,8 +8,10 @@ let keywords
 let photos
 let checkboxContainer
 let checkboxes
+let previousButton
+let copyPreviousModal
+let modalContent
 let copiedText
-let checked = false
 let generateArray = []
 let isbn = ''
 
@@ -25,6 +27,9 @@ function defineObjects() {
     photos = document.getElementById("photos")
     checkboxContainer = document.getElementById('checkbox-container');
     checkboxes = document.getElementsByName('checkbox');
+    previousButton = document.getElementById('previousButton')
+    copyPreviousModal = document.getElementById('copyPreviousModal')
+    modalContent = document.getElementById('modalContent')
     copiedText = document.querySelector('.check')
 }
 
@@ -62,24 +67,26 @@ function extractYear(dateString) {
     return year;
 }
 
-function copyToClipboard(outputText) {
-    navigator.clipboard.writeText(outputText ? outputText : output.value)
+function copyToClipboard(outputText, index) {
+    let outputStr
+    if (outputText) {
+        outputStr = outputText
+        console.log('had output!', outputText)
+    } else if (index !== false) {
+        outputStr = generateArray[index][1]
+        document.querySelectorAll('.previousButton')[index].style.backgroundColor = '#039318'
+        setTimeout(() => {
+            closeModal()
+        }, 500);
+        console.log('had index!', index)
+    } else {
+        outputStr = output.value
+    }
+    console.log(outputStr, index)
+    console.log('copy str', outputStr)
+    navigator.clipboard.writeText(outputStr)
         .then(() => {
-            if (outputText) {
-                setCopied(true)
-                console.log('had output')
-            } else {
-                console.log('no output!')
-                if (checked) {
-                    setCopied(false);
-                    setTimeout(() => {
-                        setCopied(true);
-                        console.log('set the thing')
-                    }, 200);
-                } else {
-                    setCopied(true);
-                }
-            }
+            setCopied(true);
         })
         .catch(err => {
             console.error("Failed to copy text: ", err);
@@ -87,15 +94,24 @@ function copyToClipboard(outputText) {
 }
 
 function generate() {
-    checked = true;
     if (!titleInput.value) {
         alert('Please enter a book title.')
     } else {
-        let outputText = `${titleInput.value}{${authorInput.value}{${descriptionInput.value}{${getCheckedValues()}{${isbn}`
+        let title = titleInput.value
+        let outputText = `${title}{${authorInput.value}{${descriptionInput.value}{${getCheckedValues()}{${isbn}`
         getCheckedValues()
         output.value = outputText;
-        copyToClipboard(outputText);
+        copyToClipboard(outputText)
+        if (generateArray[0] && generateArray[0][0] === title) {
+            generateArray.shift()
+        }
+        generateArray.unshift([
+            title,
+            outputText
+        ])
     }
+    console.log('generateed!')
+    console.log(generateArray)
 }
 
 function setCopied(copied) {
@@ -117,7 +133,6 @@ function clearAndFocus() {
     output.value = '';
     photos.innerHTML = '';
     setCopied(false);
-    checked = false;
     isbn = ''
 
     checkboxes.forEach(x => {
@@ -248,6 +263,23 @@ async function getGoogleImageSearchResult(isbn) {
     return urls.slice(0, numberOfResults);
 }
 
+function copyPrevious() {
+    copyPreviousModal.style.display = 'block'
+    for (i = 0; i < generateArray.length && i < 10; i++ ) {
+        modalContent.innerHTML += `
+            <div class="row">
+                <button class="previousButton" onclick="copyToClipboard(false, ${i})">Copy</button>
+                <p class="previousTitle">${generateArray[i][0]}</p>
+            </div>
+        `
+    }
+}
+
+function closeModal() {
+    copyPreviousModal.style.display = 'none'
+    modalContent.innerHTML = ''
+}
+
 // Listen for submit event on ISBN form
 document.getElementById("isbn-form").addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -265,10 +297,6 @@ document.getElementById("isbn-form").addEventListener("submit", async function (
             <p><a href=https://www.amazon.com/s?i=stripbooks&rh=p_66%3A${isbn}&s=relevanceexprank&Adv-Srch-Books-Submit.x=35&Adv-Srch-Books-Submit.y=12&unfiltered=1&ref=sr_adv_b" target="_blank">Amazon</a>
             <p><a href=https://www.ebay.com/sh/research?marketplace=EBAY-US&keywords=${isbn}&dayRange=90&endDate=1680216616964&startDate=1672444216964&categoryId=0&offset=0&limit=50&tabName=SOLD&tz=America%2FLos_Angeles" target="_blank">Ebay</a>
         `;
-            // google api thumbnail: <img src="${bookData.imageLinks?.thumbnail}">
-            //     photos.innerHTML += `
-            //     <img src="https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg">
-            // `
         } catch (error) {
             alert('ISBN not recognized.')
         }

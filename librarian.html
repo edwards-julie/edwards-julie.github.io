@@ -124,8 +124,50 @@ hr {
   top: -12px;
 }
 
+#copyPreviousModal {
+    width: 50%;
+    overflow: hidden;
+    border: 1px solid black;
+    padding: 20px;
+    position: absolute;
+    background: white;
+    z-index: 999;
+    left: 25%;
+    top: 60px;
+    display: none;
+}
+
+.row {
+    margin-bottom: 14px;
+}
+
+#copyPreviousModal p {
+    display: inline;
+}
+
+.previousButton {
+    display: inline;
+    margin-right: 20px;
+}
+
+#closeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background: none;
+    color: black;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+
 </style>
 <body>
+    <div id="copyPreviousModal">
+        <button type="button" id="closeButton" onClick="closeModal()">X</button>
+        <div id="modalContent"></div>
+    </div>
     <div class="main">
         <div class="isbn-group">
             <h2>Librarian</h2>
@@ -141,8 +183,8 @@ hr {
                 <div class="input-group">
                 <input type="text" id="output" name="author">
                 <button id="output" class="output" onclick="generate()" type="submit">Generate</button>
-                <button class="copy-btn" onclick="copyToClipboard()" title="Copy to clipboard">
-                    Copy
+                <button id="previousButton" onclick="copyPrevious()" title="Copy Previous">
+                    Previous
                 </button>
                 <div class="check"><img src="check.png">Copied</div>
                 </div>
