@@ -35,7 +35,6 @@ function defineObjects() {
 
 function formatAuthorNames(authors) {
     let formattedAuthors = '';
-    console.log(authors)
     // Format the first author
     if (authors[0]) {
         let authorParts = authors[0].split(' ');
@@ -71,19 +70,16 @@ function copyToClipboard(outputText, index) {
     let outputStr
     if (outputText) {
         outputStr = outputText
-        console.log('had output!', outputText)
+        console.log(outputText)
     } else if (index !== false) {
         outputStr = generateArray[index][1]
         document.querySelectorAll('.previousButton')[index].style.backgroundColor = '#039318'
         setTimeout(() => {
             closeModal()
         }, 500);
-        console.log('had index!', index)
     } else {
         outputStr = output.value
     }
-    console.log(outputStr, index)
-    console.log('copy str', outputStr)
     navigator.clipboard.writeText(outputStr)
         .then(() => {
             setCopied(true);
@@ -110,7 +106,6 @@ function generate() {
             outputText
         ])
     }
-    console.log('generateed!')
     console.log(generateArray)
 }
 
@@ -141,23 +136,25 @@ function clearAndFocus() {
 }
 
 const checkboxValues = [
-    'Featured',
-    'LP',
-    'Foreign-Language',
-    'NW',
-    'Graphic-Novel',
-    'Signed',
-    'Holiday',
-    'True-Crime',
-    'Justice',
-    'UU',
-    'LGBTQ',
-    'Women'
+    "Featured",
+    "Justice",
+    "Signed",
+    "Foreign-Language",
+    "LGBTQ",
+    "True-Crime",
+    "Graphic-Novel",
+    "LP",
+    "UU",
+    "Holiday",
+    "NW",
+    "Women"
 ];
+
+console.log(checkboxValues)
 
 function renderCheckboxes() {
     //checkboxValues.sort();
-    const numColumns = 2;
+    const numColumns = 3;
     const numRows = Math.ceil(checkboxValues.length / numColumns);
     const checkboxTemplate = document.createElement('template');
     checkboxTemplate.innerHTML = `<div class="checkbox-column"></div>`;
@@ -174,9 +171,11 @@ function renderCheckboxes() {
                 checkbox.type = 'checkbox';
                 checkbox.name = 'checkbox';
                 checkbox.value = checkboxLabel;
+                checkbox.id = checkboxLabel
                 const label = document.createElement('label');
                 label.textContent = checkboxLabel;
                 label.classList.add('checkbox-label');
+                label.htmlFor = checkboxLabel;
                 columns[j].appendChild(checkbox);
                 columns[j].appendChild(label);
                 index++;
@@ -213,7 +212,6 @@ async function getImages(isbn) {
 }
 
 function addImages(hrefs) {
-    console.log(hrefs)
     hrefs.forEach(x => {
         photos.innerHTML += `<img src="${x}" />`
     })
@@ -229,12 +227,10 @@ function addImages(hrefs) {
 
 // Define a function to fetch book information from an API using ISBN
 async function fetchBookInfo(isbn) {
-    console.log(isbn)
     const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
     const data = await response.json();
     getImages(isbn)
     let googleBookData = data.items[0].volumeInfo;
-    console.log(googleBookData)
     setCopied(false);
     return formatBookInfo(googleBookData, isbn);
 }
@@ -249,16 +245,12 @@ async function getGoogleImageSearchResult(isbn) {
     // Building call to API
     var url = "https://www.googleapis.com/customsearch/v1?key=" + apikey + "&cx=" + searchEngineID
         + "&q=" + isbn + "&num=10&searchType=image";
-    console.log(url);
 
     const response = await fetch(url);
-    console.log(response);
     const data = await response.json();
-    console.log(data);
     const urls = data.items.map(x => {
         if (x.link && x.link.includes('.jpg')) return `${x.link.split('.jpg')[0]}.jpg`
     }).filter(x => x)
-    console.log(urls);
 
     return urls.slice(0, numberOfResults);
 }
@@ -316,7 +308,6 @@ document.getElementById("book-form").addEventListener("submit", function (event)
         description: document.getElementById("description-input").value,
         keywords: document.getElementById("keywords-input").value,
     };
-    console.log(formData);
 });
 
 window.addEventListener("load", function () {

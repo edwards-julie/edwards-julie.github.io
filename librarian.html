@@ -97,12 +97,20 @@ hr {
 }
 
 #photos img {
+    display: block;
     margin: auto;
+    max-width: 90%;
+    margin-bottom: 15px;
+}
+
+#photos span {
+    margin-bottom: 5px;
     display: block;
 }
 
 #checkbox-container {
     display: flex;
+    margin-bottom: 12px;
 }
 
 .checkbox-column {
@@ -139,6 +147,10 @@ hr {
 
 .row {
     margin-bottom: 14px;
+}
+
+.row:last-of-type {
+    margin-bottom: 0;
 }
 
 #copyPreviousModal p {
@@ -181,12 +193,12 @@ hr {
             
             <div class="form-group output">
                 <div class="input-group">
-                <input type="text" id="output" name="author">
-                <button id="output" class="output" onclick="generate()" type="submit">Generate</button>
-                <button id="previousButton" onclick="copyPrevious()" title="Copy Previous">
-                    Previous
-                </button>
-                <div class="check"><img src="check.png">Copied</div>
+                    <input type="text" id="output" name="author">
+                    <button id="output" class="output" onclick="generate()" type="submit">Generate</button>
+                    <button id="previousButton" onclick="copyPrevious()" title="Copy Previous">
+                        Previous
+                    </button>
+                    <div class="check"><img src="check.png">Copied</div>
                 </div>
             </div>
             <div id="links"></div>
@@ -210,12 +222,10 @@ hr {
             <!-- <input type="text" id="keywords-input" name="keywords"> -->
             <div id="checkbox-container"></div>
             </div>
-            
-            
-        </div>
         </form>
+        <hr>
         <div id="photos"></div>
-        </div>
+    </div>
     <script src="librarian.js"></script>
 </body>
 </html>
