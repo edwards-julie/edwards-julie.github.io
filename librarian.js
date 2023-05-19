@@ -95,6 +95,7 @@ function generate() {
     } else {
         let title = titleInput.value
         let outputText = `${title}{${authorInput.value}{${descriptionInput.value}{${getCheckedValues()}{${isbn}`
+        outputText = outputText.replace(/(\r\n|\n|\r)/gm, "")
         getCheckedValues()
         output.value = outputText;
         copyToClipboard(outputText)
