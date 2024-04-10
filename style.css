@@ -73,12 +73,13 @@ a:hover {
 #countdown {
   margin-bottom: -2px;
   color: #1f3671;
+  display: flex;
+  justify-content: center;
 }
 
 ul {
-  margin: auto;
   padding: 0;
-  margin-left: 18%;
+  margin-bottom: 0;
 }
 
 li {
