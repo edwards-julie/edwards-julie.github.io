@@ -7,7 +7,7 @@
   
     const saleDate = '06/11/2024';
     
-    const countDown = new Date(saleDate).getTime() + (7 * 60 * 60000),
+    const countDown = new Date(saleDate).getTime() + ((7 * 60 + 1) * 60000),
         x = setInterval(function() {    
   
             const now = new Date().getTime(),
