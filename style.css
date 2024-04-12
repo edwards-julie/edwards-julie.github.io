@@ -17,7 +17,8 @@ dark blue: #224093
 .blog h2 a,
 .blog h3 a {
   text-decoration: none;
-  color: #224093
+  color: #224093;
+  font-size: 36px;
 }
 
 .blog h3 {
@@ -45,8 +46,8 @@ dark blue: #224093
 }
 
 img.suurf-blog {
-  width: 29px;
-  margin: 0 -10px 0 0;
+  width: 39px;
+  margin: 0 -14px 0 0;
   transform: rotate(-12deg);
 }
 
