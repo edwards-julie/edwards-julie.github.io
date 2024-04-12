@@ -1,3 +1,55 @@
+/**************
+
+THEME COLORS
+
+dark blue: #224093
+
+***************/
+
+/* Blog */
+
+.blog h2 {
+  text-align: left;
+  margin: 10px 0 16px;
+  font-size: 28px;
+}
+
+.blog h2 a,
+.blog h3 a {
+  text-decoration: none;
+  color: #224093
+}
+
+.blog h3 {
+  color: #224093;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: .25px;
+}
+
+.blog .byline {
+  color: #a8a8a8;
+  font-size: 13px;
+  margin: 0;
+}
+
+.blog .summary {
+  margin-top: 6px;
+  margin-bottom: 28px;
+}
+
+.blog li {
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+
+img.suurf-blog {
+  width: 29px;
+  margin: 0 -10px 0 0;
+  transform: rotate(-12deg);
+}
+
 .main {
   width: 100%;
   max-width: 600px;
@@ -83,7 +135,7 @@ ul {
   margin-bottom: 0;
 }
 
-li {
+.home li {
   display: inline-block;
   font-size: 15px;
   list-style-type: none;
