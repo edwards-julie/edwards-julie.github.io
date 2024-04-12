@@ -11,14 +11,13 @@ dark blue: #224093
 .blog h2 {
   text-align: left;
   margin: 10px 0 16px;
-  font-size: 28px;
+  font-size: 36px;
 }
 
 .blog h2 a,
 .blog h3 a {
   text-decoration: none;
   color: #224093;
-  font-size: 36px;
 }
 
 .blog h3 {
