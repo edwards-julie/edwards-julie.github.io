@@ -82,6 +82,13 @@ h3 {
   padding: 6px;
 }
 
+.coming-soon {
+  text-transform: capitalize;
+  text-align: center;
+  font-size: 28px;
+  margin: 0;
+}
+
 p {
   font-size: 16px;
 }
@@ -130,6 +137,10 @@ a:hover {
   justify-content: center;
 }
 
+#countdown ul {
+  margin: 0;
+}
+
 ul {
   padding: 0;
   margin-bottom: 0;
@@ -150,7 +161,7 @@ li span {
 }
 
 .ouuc-logo {
-  width: 56%;
+  width: 35%;
   margin: 10px auto;
   display: block;
 }
