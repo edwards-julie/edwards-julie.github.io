@@ -144,10 +144,10 @@ const checkboxValues = [
     "LGBTQ",
     "True-Crime",
     "Graphic-Novel",
-    "LP",
+    "L-P",
     "UU",
     "Holiday",
-    "NW",
+    "PNW",
     "Women"
 ];
 
