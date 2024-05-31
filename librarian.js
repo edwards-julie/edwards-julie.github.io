@@ -143,12 +143,13 @@ const checkboxValues = [
     "Foreign-Language",
     "LGBTQ",
     "True-Crime",
-    "Graphic-Novel",
+    "Gift-Worthy",
     "L-P",
     "UU",
-    "Holiday",
+    "Graphic-Novel",
     "PNW",
-    "Women"
+    "Women",
+    "Holiday",
 ];
 
 console.log(checkboxValues)
