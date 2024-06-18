@@ -89,16 +89,16 @@ function copyToClipboard(outputText, index) {
         });
 }
 
-function generate() {
-    if (!titleInput.value) {
+function generate(generate) {
+    if (!titleInput.value && generate) {
         alert('Please enter a book title.')
-    } else {
+    } else if (titleInput.value) {
         let title = titleInput.value
         let outputText = `${title}{${authorInput.value}{${descriptionInput.value}{${getCheckedValues()}{${isbn}`
         outputText = outputText.replace(/(\r\n|\n|\r)/gm, "")
         getCheckedValues()
         output.value = outputText;
-        copyToClipboard(outputText)
+        if (generate) copyToClipboard(outputText)
         if (generateArray[0] && generateArray[0][0] === title) {
             generateArray.shift()
         }
@@ -119,6 +119,7 @@ function setCopied(copied) {
 }
 
 function clearAndFocus() {
+    if (isbnInput.value.length) generate(false)
     isbnInput.value = "";
     isbnInput.focus();
 
@@ -214,6 +215,7 @@ async function getImages(isbn) {
 }
 
 function addImages(hrefs) {
+    photos.innerHTML = ''
     hrefs.forEach(x => {
         photos.innerHTML += `<img src="${x}" />`
     })
