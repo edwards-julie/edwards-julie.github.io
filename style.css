@@ -6,54 +6,10 @@ dark blue: #224093
 
 ***************/
 
-/* Blog */
-
-.blog h2 {
-  text-align: left;
-  margin: 10px 0 16px;
-  font-size: 36px;
-}
-
-.blog h2 a,
-.blog h3 a {
-  text-decoration: none;
-  color: #224093;
-}
-
-.blog h3 {
-  color: #224093;
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: .25px;
-}
-
-.blog .byline {
-  color: #a8a8a8;
-  font-size: 13px;
-  margin: 0;
-}
-
-.blog .summary {
-  margin-top: 6px;
-  margin-bottom: 28px;
-}
-
-.blog li {
-  margin-left: 40px;
-  margin-bottom: 20px;
-}
-
-img.suurf-blog {
-  width: 39px;
-  margin: 0 -14px 0 0;
-  transform: rotate(-12deg);
-}
-
 .main {
   width: 100%;
   max-width: 600px;
-  margin: 20px auto 40px;
+  margin: 50px auto 40px;
   font-family: sans-serif;
 }
 
@@ -66,26 +22,32 @@ h1 {
   margin-bottom: 10px;
 }
 
-h2, h3 {
-  color: #1f3671;
+h3 {
+  color: #107c9e;
+  margin-bottom: 10px;
 }
 
 h2 {
-  font-size: 32px;
+  font-size: 43px;
   width: 85%;
   margin: 3px auto;
 }
 
 h3 {
-  font-size: 14px;
+  font-size: 22px;
   font-weight: 400;
   padding: 6px;
 }
 
 .presented {
-  display: flex;
+  /* display: flex; */
   width: 85%;
   margin: auto;
+}
+
+.presented p {
+  color: #107c9e;
+  margin: 28px 0;
 }
 
 .coming-soon {
@@ -179,4 +141,48 @@ li span {
   width: 70%;
   margin: 10px auto;
   display: block;
+}
+
+/* Blog */
+
+.blog h2 {
+  text-align: left;
+  margin: 10px 0 16px;
+  font-size: 36px;
+}
+
+.blog h2 a,
+.blog h3 a {
+  text-decoration: none;
+  color: #224093;
+}
+
+.blog h3 {
+  color: #224093;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: .25px;
+}
+
+.blog .byline {
+  color: #a8a8a8;
+  font-size: 13px;
+  margin: 0;
+}
+
+.blog .summary {
+  margin-top: 6px;
+  margin-bottom: 28px;
+}
+
+.blog li {
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+
+img.suurf-blog {
+  width: 39px;
+  margin: 0 -14px 0 0;
+  transform: rotate(-12deg);
 }
